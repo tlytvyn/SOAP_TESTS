@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>takeAlot.webservices.test</groupId>
+  <artifactId>soapui-maven2-plugin</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Take A Lot Automation Web Services</name>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>eviwarePluginRepository</id>
+      <url>http://www.eviware.com/repository/maven2/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>eviware</groupId>
+        <artifactId>maven-soapui-plugin</artifactId>
+        <version>4.5.1</version>
+		
+		<dependencies>
+			<dependency>
+				<groupId>com.takealot</groupId>
+				<artifactId>soapui-parser-order</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.9</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mongodb</groupId>
+				<artifactId>mongo-java-driver</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.2</version>
+			</dependency>    
+		</dependencies>
+		
+		
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <projectFile>Returns-soapui-project.xml</projectFile>
+			  <projectProperties>
+                                <value>message=Hello World!</value>
+              </projectProperties>
+              <outputFolder>${project.build.directory}/surefire-reports</outputFolder>
+              <junitReport>true</junitReport>
+              <exportAll>true</exportAll>
+              <printReport>true</printReport>
+              <testFailIgnore>true</testFailIgnore>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!--
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <configuration>
+              <tasks unless="maven.test.skip">
+                <echo message="Generating extended reports for jenkins CI"/>
+                <exec executable="python" error="target/error.from.jobs">
+                  <arg value="bin/ext_reports.py"/>
+                </exec>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+	  -->
+	<!--
+	  <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.4.1</version>
+            <configuration>
+              <filesets>
+                <fileset>
+                    <directory>test-output</directory>
+                    <includes>
+                        <include>**</include>
+                    </includes>
+                    <followSymlinks>false</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
+        </plugin>
+	-->
+    </plugins>
+  </build>
+</project>
